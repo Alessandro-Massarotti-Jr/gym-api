@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { AuthMiddleware } from "../middlewares/AuthMiddleware";
-import { CreateAccountController } from "../modules/Accounts/usecases/CreateAccountUseCase/CreateUserController";
 import { GetAccountController } from "../modules/Accounts/usecases/GetAccountUseCase/GetAccountController";
 import { GetAllAccountsController } from "../modules/Accounts/usecases/GetAllAccountsUseCase/GetAllAccountsController";
 import { UpdatePasswordAccountController } from "../modules/Accounts/usecases/UpdatePasswordAccountUseCase/UpdatePasswordAccountController";
 import { ForgotPasswordAccountController } from "../modules/Accounts/usecases/ForgotPasswordAccountUseCase/ForgotPasswordAccountController";
+import { CreateAccountController } from "../modules/Accounts/usecases/CreateAccountUseCase/CreateAccountController";
 
 const accountsRoutes = Router();
 

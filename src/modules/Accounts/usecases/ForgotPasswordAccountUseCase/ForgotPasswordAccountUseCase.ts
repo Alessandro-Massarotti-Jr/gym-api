@@ -10,7 +10,7 @@ export class ForgotPasswordAccountUseCase {
   constructor(
     @inject("AccountsRepository")
     private accountsRepository: IAccountsRepository
-  ) {}
+  ) { }
 
   async execute(user_email: string) {
     const account = await this.accountsRepository.findByEmail(user_email);
@@ -19,8 +19,7 @@ export class ForgotPasswordAccountUseCase {
       throw new ApiError("Nenhuma conta encontrada com este e-mail.");
     }
 
-    const buffer = crypto.randomBytes(14);
-    const password = buffer.toString("base64").slice(0, 14);
+    const password = crypto.randomBytes(14).toString("base64").slice(0, 14);
 
     const respEmail = await sendForgotPasswordMail(password, user_email);
 

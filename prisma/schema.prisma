@@ -79,6 +79,10 @@ model Workouts {
   id               String             @id @default(uuid())
   account_id       String
   date             DateTime
+  started          Boolean            @default(false)
+  started_at       DateTime?
+  finished         Boolean            @default(false)
+  finished_at      DateTime?
   deleted_at       DateTime?
   created_at       DateTime           @default(now())
   updated_at       DateTime           @updatedAt()

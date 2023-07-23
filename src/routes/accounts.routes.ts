@@ -1,4 +1,6 @@
 import { Router } from "express";
+import multer from "multer";
+import uploadConfig from "../config/multer"
 import { AuthMiddleware } from "../middlewares/AuthMiddleware";
 import { GetAccountController } from "../modules/Accounts/usecases/GetAccountUseCase/GetAccountController";
 import { GetAllAccountsController } from "../modules/Accounts/usecases/GetAllAccountsUseCase/GetAllAccountsController";
@@ -15,6 +17,8 @@ const updatePasswordAccountController = new UpdatePasswordAccountController();
 const forgotPasswordAccountController = new ForgotPasswordAccountController();
 const getAccountController = new GetAccountController();
 const getAllAccountsController = new GetAllAccountsController();
+
+const uploadAccountImage = multer(uploadConfig.upload("./accounts"));
 
 accountsRoutes.get("/", async (req, res) => {
   return await getAllAccountsController.handle(req, res);

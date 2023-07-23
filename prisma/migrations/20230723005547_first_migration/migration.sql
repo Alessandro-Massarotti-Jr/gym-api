@@ -70,7 +70,6 @@ CREATE TABLE `ExercisesVideos` (
 CREATE TABLE `Workouts` (
     `id` VARCHAR(191) NOT NULL,
     `account_id` VARCHAR(191) NOT NULL,
-    `date` DATETIME(3) NOT NULL,
     `started` BOOLEAN NOT NULL DEFAULT false,
     `started_at` DATETIME(3) NULL,
     `finished` BOOLEAN NOT NULL DEFAULT false,

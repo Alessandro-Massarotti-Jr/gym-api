@@ -1,14 +1,8 @@
 import { hash } from "bcrypt";
 import { ApiError } from "../../../../errors/ApiError";
 import { inject, injectable } from "tsyringe";
-import { IAccountsRepository } from "../../../../repositories/IAccountsRepository";
+import { IAccountsRepository, ICreateAccountDTO } from "../../../../repositories/IAccountsRepository";
 
-
-interface ICreateAccountUseCaseData {
-    email: string;
-    password: string;
-    ascending_account_id?: string;
-}
 
 @injectable()
 class CreateAccountUseCase {
@@ -18,7 +12,7 @@ class CreateAccountUseCase {
 
     ) { };
 
-    async execute({ email, password }: ICreateAccountUseCaseData): Promise<void> {
+    async execute({ email, password, name }: ICreateAccountDTO): Promise<void> {
 
         const accountAlreadyExists = await this.accountsRepository.findByEmail(email);
 
@@ -29,7 +23,7 @@ class CreateAccountUseCase {
 
         const passwordHash = await hash(password, 8);
 
-        const account = await this.accountsRepository.create({ email, password: passwordHash });
+        const account = await this.accountsRepository.create({ email, password: passwordHash, name });
 
 
         return;

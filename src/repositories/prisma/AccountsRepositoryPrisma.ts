@@ -48,7 +48,8 @@ export class AccountsRepositoryPrisma implements IAccountsRepository {
     const account = await this.repository.create({
       data: {
         email: data.email,
-        password: data.password
+        password: data.password,
+        name: data.name
       },
     });
 

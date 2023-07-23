@@ -78,7 +78,6 @@ model ExercisesVideos {
 model Workouts {
   id               String             @id @default(uuid())
   account_id       String
-  date             DateTime
   started          Boolean            @default(false)
   started_at       DateTime?
   finished         Boolean            @default(false)

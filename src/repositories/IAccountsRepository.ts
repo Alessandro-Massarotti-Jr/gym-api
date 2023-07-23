@@ -3,6 +3,7 @@ import { IAccount } from "../models/Account";
 export interface ICreateAccountDTO {
     email: string;
     password: string;
+    name: string;
 }
 
 export interface IUpdatePasswordDTO {

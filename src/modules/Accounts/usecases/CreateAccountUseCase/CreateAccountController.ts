@@ -7,11 +7,11 @@ export class CreateAccountController {
 
     async handle(req: Request, res: Response) {
 
-        const { email, password } = CreateAccountValidation.validate(req.body);
+        const { email, password, name } = CreateAccountValidation.validate(req.body);
 
         const createAccountUseCase = container.resolve(CreateAccountUseCase);
 
-        await createAccountUseCase.execute({ email, password });
+        await createAccountUseCase.execute({ email, password, name });
 
         return res.returnApi({ data: null, message: "Conta criada com sucesso", developerMessage: "account created", statusHTTP: 201 });
     }

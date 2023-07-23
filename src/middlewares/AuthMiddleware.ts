@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { ApiError } from "../errors/ApiError";
 import "dotenv/config";
-import { AccountsRepositoryPrisma } from "../repositories/prisma/AccountsRepositoryPrisma";
+import { AccountsRepositoryPrisma } from "../database/repositories/prisma/AccountsRepositoryPrisma";
 
 interface IPayload {
     sub: string;
@@ -33,7 +33,7 @@ export class AuthMiddleware {
             req.auth_user = user
 
             next();
-        } catch(error) {
+        } catch (error) {
             throw new ApiError("O token de acesso é invalido", 401);
         }
     }

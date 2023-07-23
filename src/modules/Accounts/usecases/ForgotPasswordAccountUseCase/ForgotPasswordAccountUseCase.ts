@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
-import { IAccountsRepository } from "../../../../repositories/IAccountsRepository";
 import { ApiError } from "../../../../errors/ApiError";
 import crypto from "crypto";
 import { sendForgotPasswordMail } from "../../../../mail/triggers/sendForgotPasswordMailTrigger";
 import { hash } from "bcrypt";
+import { IAccountsRepository } from "../../../../database/repositories/IAccountsRepository";
 
 @injectable()
 export class ForgotPasswordAccountUseCase {

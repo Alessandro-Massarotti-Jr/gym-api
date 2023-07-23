@@ -1,9 +1,9 @@
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
-import { IAccountsRepository } from "../../../../repositories/IAccountsRepository";
 import { ApiError } from "../../../../errors/ApiError";
 import "dotenv/config";
 import { inject, injectable } from "tsyringe";
+import { IAccountsRepository } from "../../../../database/repositories/IAccountsRepository";
 interface IRequest {
     email: string;
     password: string;

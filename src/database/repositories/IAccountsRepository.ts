@@ -1,4 +1,5 @@
-import { IAccount } from "../models/Account";
+import { IAccount } from "../../models/Account";
+
 
 export interface ICreateAccountDTO {
     email: string;
@@ -11,6 +12,11 @@ export interface IUpdatePasswordDTO {
     new_password: string;
 }
 
+export interface IUpdateProfileImageDTO {
+    account_id: string;
+    profile_image: string;
+}
+
 export interface IAccountsRepository {
     create(data: ICreateAccountDTO): Promise<IAccount>;
     findById(account_id: string): Promise<IAccount>;
@@ -19,4 +25,5 @@ export interface IAccountsRepository {
     updateLogin(account_id: string): Promise<void>;
     get(): Promise<IAccount[]>;
     updatePassword(data: IUpdatePasswordDTO): Promise<void>;
+    updateProfileImage(data: IUpdateProfileImageDTO): Promise<void>;
 }

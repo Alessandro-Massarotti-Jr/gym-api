@@ -1,6 +1,7 @@
 
 import { inject, injectable } from "tsyringe";
-import { IAccountsRepository } from "../../../../repositories/IAccountsRepository";
+import { IAccountsRepository } from "../../../../database/repositories/IAccountsRepository";
+
 
 @injectable()
 export class GetAllAccountsUseCase {
@@ -10,6 +11,15 @@ export class GetAllAccountsUseCase {
     async execute() {
 
         const accounts = await this.accountsRepository.get();
+
+        accounts.map((account) => {
+
+            if (account.profile_image) {
+                account.profile_image = `${process.env.APP_URL}${account.profile_image}`
+            }
+
+            return account
+        });
 
         return accounts;
     }

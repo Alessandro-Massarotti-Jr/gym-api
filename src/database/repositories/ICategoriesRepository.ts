@@ -1,4 +1,5 @@
-import { ICategory } from "../models/Category";
+import { ICategory } from "../../models/Category";
+
 
 export interface ICreateCategoryDTO {
     name: string;

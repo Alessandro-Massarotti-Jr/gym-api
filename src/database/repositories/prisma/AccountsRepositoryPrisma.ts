@@ -2,15 +2,25 @@ import {
   IAccountsRepository,
   ICreateAccountDTO,
   IUpdatePasswordDTO,
+  IUpdateProfileImageDTO,
 } from "../IAccountsRepository";
 import { prisma } from ".";
-import { IAccount } from "../../models/Account";
+import { IAccount } from "../../../models/Account";
+
 
 export class AccountsRepositoryPrisma implements IAccountsRepository {
   private repository;
 
   constructor() {
     this.repository = prisma.accounts;
+  }
+  async updateProfileImage({ account_id, profile_image }: IUpdateProfileImageDTO): Promise<void> {
+    await this.repository.update({
+      where: {
+        id: account_id
+      },
+      data: { profile_image: profile_image }
+    })
   }
   async updatePassword({
     account_id,

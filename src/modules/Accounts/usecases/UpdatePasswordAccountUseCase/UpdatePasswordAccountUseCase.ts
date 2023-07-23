@@ -1,10 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import {
-  IAccountsRepository,
-  IUpdatePasswordDTO,
-} from "../../../../repositories/IAccountsRepository";
 import { ApiError } from "../../../../errors/ApiError";
 import { compare, hash } from "bcrypt";
+import { IAccountsRepository, IUpdatePasswordDTO } from "../../../../database/repositories/IAccountsRepository";
 
 
 interface IRequest extends IUpdatePasswordDTO {

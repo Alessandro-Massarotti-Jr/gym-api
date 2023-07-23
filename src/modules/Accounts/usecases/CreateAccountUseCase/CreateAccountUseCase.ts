@@ -1,7 +1,7 @@
 import { hash } from "bcrypt";
 import { ApiError } from "../../../../errors/ApiError";
 import { inject, injectable } from "tsyringe";
-import { IAccountsRepository, ICreateAccountDTO } from "../../../../repositories/IAccountsRepository";
+import { IAccountsRepository, ICreateAccountDTO } from "../../../../database/repositories/IAccountsRepository";
 
 
 @injectable()

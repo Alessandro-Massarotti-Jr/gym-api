@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { AuthMiddleware } from "../middlewares/AuthMiddleware";
 import { accountsRoutes } from "./accounts.routes";
 import { authRoutes } from "./auth.routes";
+import { categoriesRoutes } from "./categories.routes";
 
 
 export const routes = express.Router();
@@ -20,3 +21,5 @@ routes.get("/teste", authMiddleware.auth, (req: Request, res: Response) => {
 routes.use("/auth", authRoutes);
 
 routes.use("/accounts", accountsRoutes);
+
+routes.use("/categories", categoriesRoutes);

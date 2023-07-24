@@ -11,8 +11,8 @@ export class CategoriesRepositoryPrisma implements ICategoriesRepository {
     constructor() {
         this.repository = prisma.categories;
     }
-    findbyName(category_name: string): Promise<ICategory> {
-        throw new Error("Method not implemented.");
+    async findbyName(category_name: string): Promise<ICategory> {
+        return await this.repository.findFirst({ where: { name: category_name } }) as ICategory;
     }
     async create({ name, description, image_path }: ICreateCategoryDTO): Promise<ICategory> {
         const category = await this.repository.create({
@@ -26,16 +26,32 @@ export class CategoriesRepositoryPrisma implements ICategoriesRepository {
         return category as ICategory;
     }
     async findByID(category_id: string): Promise<ICategory> {
-        throw new Error("Method not implemented.");
+        const category = await this.repository.findFirst({
+            where: {
+                id: category_id
+            }
+        });
+
+        return category as ICategory;
     }
     async getAll(): Promise<ICategory[]> {
-        throw new Error("Method not implemented.");
+        return await this.repository.findMany() as ICategory[];
     }
     async delete(category_id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        await this.repository.delete({ where: { id: category_id } });
     }
-    async update(data: IUpdateCategoryDTO): Promise<ICategory> {
-        throw new Error("Method not implemented.");
+    async update({ id, name, description, image_path }: IUpdateCategoryDTO): Promise<ICategory> {
+        const category = await this.repository.update({
+            where: {
+                id
+            },
+            data: {
+                name,
+                description,
+                image_path
+            }
+        });
+        return category as ICategory;
     }
 
 }

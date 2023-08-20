@@ -1,6 +1,6 @@
 import os from "node:os";
 import cluster from "node:cluster";
-import { log } from "./utils/log";
+import { log } from "@utils/log";
 import { startServer } from "./server";
 
 const runPrimaryProcess = () => {

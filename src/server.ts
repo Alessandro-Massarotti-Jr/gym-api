@@ -2,12 +2,12 @@ import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import "reflect-metadata";
 import "./container"
-import { routes } from "./routes";
-import { ApiError } from "./errors/ApiError";
+import { routes } from "@routes/index";
+import { ApiError } from "@errors/ApiError";
 import "dotenv/config";
 import path from "path";
 import cors from "cors";
-import { log } from "./utils/log";
+import { log } from "@utils/log";
 
 export interface IReturnApi {
     message?: string | null;

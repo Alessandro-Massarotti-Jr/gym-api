@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts",
-    "build": "npx tsc",
+    "build": "npx tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "node dist/index.js",
     "test": "jest",
     "create:usecase": "npx ts-node-dev  ./src/utils/createUseCase.ts"
@@ -29,6 +29,7 @@
     "ts-jest": "^29.1.0",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
+    "tscpaths": "^0.0.9",
     "tsx": "^3.12.1",
     "typescript": "^4.9.4"
   },

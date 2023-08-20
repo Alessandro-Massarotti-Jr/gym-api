@@ -10,7 +10,6 @@ const authMiddleware = new AuthMiddleware();
 
 routes.get("/", (req, res) => {
     return res.returnApi({ message: "Running" })
-
 });
 
 routes.get("/teste", authMiddleware.auth, (req: Request, res: Response) => {

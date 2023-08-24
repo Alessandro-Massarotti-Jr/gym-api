@@ -15,81 +15,93 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Accounts {
-  id            String     @id @default(uuid())
-  email         String     @unique
+model Account {
+  id            String    @id @default(uuid())
+  email         String    @unique
   password      String
   name          String
   profile_image String?
   last_login    DateTime?
   deleted_at    DateTime?
-  created_at    DateTime   @default(now())
-  updated_at    DateTime   @updatedAt()
-  Workouts      Workouts[] @relation(name: "account_workouts")
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt()
+  Workouts      Workout[] @relation(name: "account_workouts")
+
+  @@map("accounts")
 }
 
-model Categories {
-  id          String      @id @default(uuid())
+model Category {
+  id          String     @id @default(uuid())
   name        String
   description String?
   image_path  String?
   deleted_at  DateTime?
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt()
-  Exercises   Exercises[] @relation(name: "exercise_category")
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt()
+  Exercises   Exercise[] @relation(name: "exercise_category")
+
+  @@map("categories")
 }
 
-model Exercises {
-  id               String             @id @default(uuid())
+model Exercise {
+  id               String            @id @default(uuid())
   name             String
   description      String?
   cover_image      String?
   category_id      String?
   level            ExercisesLevels
   deleted_at       DateTime?
-  created_at       DateTime           @default(now())
-  updated_at       DateTime           @updatedAt()
-  category         Categories?        @relation(name: "exercise_category", fields: [category_id], references: [id], onDelete: SetNull)
-  WorkoutExercises WorkoutExercises[] @relation(name: "exercise_workouts")
-  ExercisesImages  ExercisesImages[]  @relation(name: "exercise_images")
-  ExercisesVideos  ExercisesVideos[]  @relation(name: "exercise_videos")
+  created_at       DateTime          @default(now())
+  updated_at       DateTime          @updatedAt()
+  category         Category?         @relation(name: "exercise_category", fields: [category_id], references: [id], onDelete: SetNull)
+  WorkoutExercises WorkoutExercise[] @relation(name: "exercise_workouts")
+  ExercisesImages  ExerciseImage[]   @relation(name: "exercise_images")
+  ExercisesVideos  ExerciseVideo[]   @relation(name: "exercise_videos")
+
+  @@map("exercises")
 }
 
-model ExercisesImages {
+model ExerciseImage {
   id          String    @id @default(uuid())
   exercise_id String
   image_path  String
   deleted_at  DateTime?
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt()
-  exercise    Exercises @relation(name: "exercise_images", fields: [exercise_id], references: [id], onDelete: Cascade)
+  exercise    Exercise  @relation(name: "exercise_images", fields: [exercise_id], references: [id], onDelete: Cascade)
+
+  @@map("exercise_images")
 }
 
-model ExercisesVideos {
+model ExerciseVideo {
   id          String    @id @default(uuid())
   exercise_id String
   video_path  String
   deleted_at  DateTime?
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt()
-  exercise    Exercises @relation(name: "exercise_videos", fields: [exercise_id], references: [id], onDelete: Cascade)
+  exercise    Exercise  @relation(name: "exercise_videos", fields: [exercise_id], references: [id], onDelete: Cascade)
+
+  @@map("exercise_videos")
 }
 
-model Workouts {
-  id               String             @id @default(uuid())
+model Workout {
+  id               String            @id @default(uuid())
   account_id       String
-  started          Boolean            @default(false)
+  started          Boolean           @default(false)
   started_at       DateTime?
-  finished         Boolean            @default(false)
+  finished         Boolean           @default(false)
   finished_at      DateTime?
   deleted_at       DateTime?
-  created_at       DateTime           @default(now())
-  updated_at       DateTime           @updatedAt()
-  account          Accounts           @relation(name: "account_workouts", fields: [account_id], references: [id], onDelete: Cascade)
-  WorkoutExercises WorkoutExercises[] @relation(name: "workout_exercises")
+  created_at       DateTime          @default(now())
+  updated_at       DateTime          @updatedAt()
+  account          Account           @relation(name: "account_workouts", fields: [account_id], references: [id], onDelete: Cascade)
+  WorkoutExercises WorkoutExercise[] @relation(name: "workout_exercises")
+
+  @@map("workouts")
 }
 
-model WorkoutExercises {
+model WorkoutExercise {
   id              String    @id @default(uuid())
   exercise_id     String
   workout_id      String
@@ -100,8 +112,10 @@ model WorkoutExercises {
   deleted_at      DateTime?
   created_at      DateTime  @default(now())
   updated_at      DateTime  @updatedAt()
-  workout         Workouts  @relation(name: "workout_exercises", fields: [workout_id], references: [id], onDelete: Cascade)
-  exercise        Exercises @relation(name: "exercise_workouts", fields: [exercise_id], references: [id], onDelete: Cascade)
+  workout         Workout   @relation(name: "workout_exercises", fields: [workout_id], references: [id], onDelete: Cascade)
+  exercise        Exercise  @relation(name: "exercise_workouts", fields: [exercise_id], references: [id], onDelete: Cascade)
+
+  @@map("workout_exercise")
 }
 
 enum ExercisesLevels {

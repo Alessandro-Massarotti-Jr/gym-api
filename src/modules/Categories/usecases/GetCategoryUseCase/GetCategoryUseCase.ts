@@ -16,10 +16,6 @@ export class GetCategoryUseCase {
             throw new ApiError("Categoria não encontrada");
         }
 
-        if (category.image_path) {
-            category.image_path = `${process.env.APP_URL}${category.image_path}`
-        }
-
         return category;
     }
 

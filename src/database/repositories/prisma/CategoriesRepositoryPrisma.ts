@@ -1,6 +1,6 @@
 
 import { prisma } from ".";
-import { ICategory } from "../../../models/Category";
+import { Category } from "../../../models/Category";
 
 import { ICategoriesRepository, ICreateCategoryDTO, IUpdateCategoryDTO } from "../ICategoriesRepository";
 
@@ -9,12 +9,14 @@ export class CategoriesRepositoryPrisma implements ICategoriesRepository {
     private repository;
 
     constructor() {
-        this.repository = prisma.categories;
+        this.repository = prisma.category;
     }
-    async findbyName(category_name: string): Promise<ICategory> {
-        return await this.repository.findFirst({ where: { name: category_name } }) as ICategory;
+    async findbyName(category_name: string): Promise<Category | null> {
+        const category = await this.repository.findFirst({ where: { name: category_name } });
+
+        return category ? new Category(category) : null;
     }
-    async create({ name, description, image_path }: ICreateCategoryDTO): Promise<ICategory> {
+    async create({ name, description, image_path }: ICreateCategoryDTO): Promise<Category> {
         const category = await this.repository.create({
             data: {
                 name,
@@ -23,24 +25,26 @@ export class CategoriesRepositoryPrisma implements ICategoriesRepository {
             }
         });
 
-        return category as ICategory;
+        return new Category(category);
     }
-    async findByID(category_id: string): Promise<ICategory> {
+    async findByID(category_id: string): Promise<Category | null> {
         const category = await this.repository.findFirst({
             where: {
                 id: category_id
             }
         });
 
-        return category as ICategory;
+        return category ? new Category(category) : null;
     }
-    async getAll(): Promise<ICategory[]> {
-        return await this.repository.findMany() as ICategory[];
+
+    async getAll(): Promise<Category[]> {
+        const categories = await this.repository.findMany();
+        return Category.fromArray(categories);
     }
     async delete(category_id: string): Promise<void> {
         await this.repository.delete({ where: { id: category_id } });
     }
-    async update({ id, name, description, image_path }: IUpdateCategoryDTO): Promise<ICategory> {
+    async update({ id, name, description, image_path }: IUpdateCategoryDTO): Promise<Category | null> {
         const category = await this.repository.update({
             where: {
                 id
@@ -51,7 +55,7 @@ export class CategoriesRepositoryPrisma implements ICategoriesRepository {
                 image_path
             }
         });
-        return category as ICategory;
+        return category ? new Category(category) : null;
     }
 
 }

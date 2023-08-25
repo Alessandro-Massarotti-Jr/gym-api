@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import "reflect-metadata";
-import "./container"
+import "@config/tsyringe-container";
 import { routes } from "@routes/index";
 import { ApiError } from "@errors/ApiError";
 import "dotenv/config";

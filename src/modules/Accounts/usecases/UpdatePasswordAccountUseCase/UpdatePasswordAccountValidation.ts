@@ -6,15 +6,13 @@ const updatepasswordSchema = z.object({
       invalid_type_error: "O campo old_password deve ser uma string",
       required_error: "O campo old_password é obrigatório",
     })
-    .nonempty({
-      message: "O campo old_password não pode ser uma string vazia",
-    }),
+    .min(8, "senha antiga deve ser maior ou igual a 8 caracteres"),
   new_password: z
     .string({
       invalid_type_error: "O campo new_password deve ser uma string",
       required_error: "O campo new_password é obrigatório",
     })
-    .min(8, "senha deve ser maior ou igual a 8 caracteres"),
+    .min(8, "nova senha deve ser maior ou igual a 8 caracteres"),
 });
 
 export class UpdatePasswordAccountValidation {

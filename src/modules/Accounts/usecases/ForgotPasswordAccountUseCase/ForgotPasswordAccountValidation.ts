@@ -5,7 +5,7 @@ const forgotpasswordaccountSchema = z.object({
     .string({
       invalid_type_error: "O campo email deve ser uma string",
       required_error: "O campo email é obrigatório.",
-    })
+    }).email({ message: "O email informado é invalido" })
     .nonempty({ message: "O campo email não pode ser uma string vazia." }),
 });
 
